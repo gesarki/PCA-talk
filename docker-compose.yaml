@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  prometheus-example-app:
+    image: gesarki/prometheus-example-app
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
