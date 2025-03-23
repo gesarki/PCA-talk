@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   prometheus-example-app:
-    image: gesarki/prometheus-example-app
+    image: gesarki/prometheus-example-app:bad-version
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -15,7 +15,22 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus
     restart: unless-stopped
+  
+  traffic-generator:
+    image: busybox
+    command: sh -c "while true; do wget prometheus-example-app:8080 -O -; sleep 2; done"
+    restart: always
 
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
 
 volumes:
   prometheus-data:
+  grafana-data:
