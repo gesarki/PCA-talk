@@ -48,15 +48,69 @@ func main() {
 	r.MustRegister(version)
 
 	foundHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello from example application."))
+		w.Write([]byte(`
+			<!DOCTYPE html>
+			<html lang="en">
+			<head>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Success</title>
+				<style>
+					body {
+						background-color: green;
+						color: white;
+						font-family: Arial, sans-serif;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						height: 100vh;
+						margin: 0;
+						text-align: center;
+					}
+				</style>
+			</head>
+			<body>
+				<h1>Looks good</h1>
+			</body>
+			</html>
+		`))
 	})
 	notfoundHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 	})
-    internalErrorHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(http.StatusInternalServerError)
-    })
+	internalErrorHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "text/html")
+		w.Write([]byte(`
+			<!DOCTYPE html>
+			<html lang="en">
+			<head>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Error</title>
+				<style>
+					body {
+						background-color: red;
+						color: white;
+						font-family: Arial, sans-serif;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						height: 100vh;
+						margin: 0;
+						text-align: center;
+					}
+				</style>
+			</head>
+			<body>
+				<h1>Uh-oh... 😬</h1>
+				<h2>someone should probably fix this</h2>
+			</body>
+			</html>
+		`))
+	})
 
 	foundChain := promhttp.InstrumentHandlerDuration(
 		httpRequestDuration.MustCurryWith(prometheus.Labels{"handler": "found"}),
