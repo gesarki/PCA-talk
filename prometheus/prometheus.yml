@@ -11,3 +11,12 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus-example-app:8080']
 
+rule_files:
+  - rules.yml
+
+# Where do we want alerts sent to?
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - "alertmanager:9093"
