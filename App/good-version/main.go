@@ -92,7 +92,7 @@ func main() {
 				<title>Error</title>
 				<style>
 					body {
-						background-color: red;
+						background-color: green;
 						color: white;
 						font-family: Arial, sans-serif;
 						display: flex;
@@ -105,8 +105,7 @@ func main() {
 				</style>
 			</head>
 			<body>
-				<h1>Uh-oh... 😬</h1>
-				<h2>someone should probably fix this</h2>
+				<h1>Looks good 🙂</h1>
 			</body>
 			</html>
 		`))
