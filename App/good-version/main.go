@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	appVersion string
-	version    = prometheus.NewGauge(prometheus.GaugeOpts{
+	appVersion string = "v1.0.1"
+	version           = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "version",
 		Help: "Version information about this binary",
 		ConstLabels: map[string]string{
@@ -72,7 +72,7 @@ func main() {
 				</style>
 			</head>
 			<body>
-				<h1>Looks good</h1>
+				<h1>Looks good 🙂</h1>
 			</body>
 			</html>
 		`))
@@ -92,7 +92,7 @@ func main() {
 				<title>Error</title>
 				<style>
 					body {
-						background-color: green;
+						background-color: red;
 						color: white;
 						font-family: Arial, sans-serif;
 						display: flex;
@@ -105,7 +105,7 @@ func main() {
 				</style>
 			</head>
 			<body>
-				<h1>Looks good 🙂</h1>
+				<h1>Error 500</h1>
 			</body>
 			</html>
 		`))

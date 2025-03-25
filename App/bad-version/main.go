@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	appVersion string
-	version    = prometheus.NewGauge(prometheus.GaugeOpts{
+	appVersion string = "v1.0.2"
+	version           = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "version",
 		Help: "Version information about this binary",
 		ConstLabels: map[string]string{
@@ -72,15 +72,20 @@ func main() {
 				</style>
 			</head>
 			<body>
-			<h1>Error 500</h1>
+			<h1>Error 500\n</h1>
 			<h2>someone should probably know about this</h2>
 			</body>
 			</html>
 		`))
 	})
 
+	foundChain := promhttp.InstrumentHandlerDuration(
+		httpRequestDuration.MustCurryWith(prometheus.Labels{"handler": "found"}),
+		promhttp.InstrumentHandlerCounter(httpRequestsTotal, internalErrorHandler),
+	)
+
 	mux := http.NewServeMux()
-	mux.Handle("/", promhttp.InstrumentHandlerCounter(httpRequestsTotal, internalErrorHandler))
+	mux.Handle("/", foundChain)
 	mux.Handle("/metrics", promhttp.HandlerFor(r, promhttp.HandlerOpts{}))
 
 	var srv *http.Server
