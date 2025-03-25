@@ -72,8 +72,8 @@ func main() {
 				</style>
 			</head>
 			<body>
-				<h1>Uh-oh... 😬</h1>
-				<h2>someone should probably fix this</h2>
+			<h1>Error 500</h1>
+			<h2>someone should probably know about this</h2>
 			</body>
 			</html>
 		`))
