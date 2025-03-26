@@ -15,29 +15,11 @@ services:
       - ./prometheus/:/etc/prometheus/
       - prometheus-data:/prometheus
     restart: unless-stopped
-  
+
   traffic-generator:
     image: busybox
     command: sh -c "while true; do wget prometheus-example-app:8080 -O -; sleep 2; done"
     restart: always
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana-data:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    restart: unless-stopped
-
-  alertmanager:
-    image: prom/alertmanager
-    ports:
-      - "9093:9093"
-    volumes:
-      - ./alertmanager/:/etc/alertmanager/
-    restart: unless-stopped
 
 volumes:
   prometheus-data:

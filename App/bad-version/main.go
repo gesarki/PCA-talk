@@ -68,12 +68,13 @@ func main() {
 						height: 100vh;
 						margin: 0;
 						text-align: center;
+						flex-direction: column;
 					}
 				</style>
 			</head>
 			<body>
-			<h1>Error 500\n</h1>
-			<h2>someone should probably know about this</h2>
+			<h1>Error 500</h1>
+			<h2>someone should probably get notified about this...</h2>
 			</body>
 			</html>
 		`))
