@@ -8,4 +8,4 @@ route:
 receivers:
   - name: 'pagerduty'
     pagerduty_configs:
-    - routing_key_file: /etc/alertmanager/pd-routing-key
+    - routing_key_file: /etc/alertmanager/pd-routing-key.example
