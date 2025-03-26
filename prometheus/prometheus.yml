@@ -7,10 +7,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'prometheus-example-app'
-    static_configs: # Let's define scrape targets "statically"
-      - targets: ['prometheus-example-app:8080']
-
 rule_files:
   - rules.yml
 
